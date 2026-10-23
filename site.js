@@ -239,7 +239,6 @@
     '<textPath href="#arcBottom" startOffset="50%" text-anchor="middle">· M DCC LXVII ·</textPath></text>' +
     '<g class="side-a"><text x="60" y="58" text-anchor="middle" fill="#9e2b25" ' +
     'font-family="Cormorant SC, Georgia, serif" font-size="16" letter-spacing="1.5">' + label + '</text></g>' +
-    '<line x1="42" y1="64" x2="78" y2="64" stroke="#9e2b25" stroke-width="1" opacity="0.8"/>' +
     '<g class="side-b"><text x="60" y="78" text-anchor="middle" fill="#9e2b25" ' +
     'font-family="Cormorant SC, Georgia, serif" font-size="16" letter-spacing="1.5">' +
     (label === 'HR' ? 'EN' : 'HR') + '</text></g>' +
