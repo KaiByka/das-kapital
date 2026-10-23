@@ -138,7 +138,7 @@
   var path = location.pathname.split('/').pop() || 'index.html';
   var map = null;
   var EN2HR = {
-    'index.html': '../hr/index.html',
+    'index.html': 'hr/index.html',
     'ch01-commodities.html': 'hr01-roba.html',
     'ch02-exchange.html': 'hr02-proces-razmjene.html',
     'ch03-money-or-the-circulation-of-commodities.html': 'hr03-novac-ili-robni-promet.html',
