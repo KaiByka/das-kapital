@@ -223,19 +223,27 @@
   a.className = 'lang-switch';
   a.href = target;
   a.title = label === 'HR' ? 'Hrvatska verzija' : 'English version';
-  var stampPath = /^hr\d/.test(path) || /\/hr\//.test(location.pathname)
-    ? (location.pathname.indexOf('glave') !== -1 ? '../../lang-stamp.svg' : '../lang-stamp.svg')
-    : (location.pathname.indexOf('chapters') !== -1 ? '../lang-stamp.svg' : 'lang-stamp.svg');
-  fetch(stampPath).then(function (r) { return r.text(); }).then(function (svg) {
-    a.innerHTML = svg;
-    var sideA = a.querySelector('.side-a text');
-    var sideB = a.querySelector('.side-b text');
-    if (label === 'HR') {
-      if (sideA) sideA.textContent = 'HR';
-      if (sideB) sideB.textContent = 'EN';
-    }
-  }).catch(function () {
-    a.textContent = label;
-  });
+  var stamp =
+    '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 120 120" width="92" height="92">' +
+    '<g fill="none" stroke="#9e2b25">' +
+    '<path d="M60 8 C 88 7, 110 30, 111 59 C 112 87, 90 110, 61 111 C 33 112, 10 91, 9 60 C 8 31, 32 9, 60 8 Z" stroke-width="2.6" opacity="0.92"/>' +
+    '<path d="M60 16 C 84 15, 103 34, 104 58 C 105 82, 86 102, 61 103 C 37 104, 18 85, 17 59 C 16 34, 36 17, 60 16 Z" stroke-width="1.4" opacity="0.85"/>' +
+    '</g>' +
+    '<defs>' +
+    '<path id="arcTop" d="M 27 60 A 33 33 0 0 1 93 60"/>' +
+    '<path id="arcBottom" d="M 27 60 A 33 33 0 0 0 93 60"/>' +
+    '</defs>' +
+    '<text fill="#9e2b25" font-family="Cormorant SC, Georgia, serif" font-size="9.5" letter-spacing="1.8">' +
+    '<textPath href="#arcTop" startOffset="50%" text-anchor="middle">DAS KAPITAL</textPath></text>' +
+    '<text fill="#9e2b25" font-family="Cormorant SC, Georgia, serif" font-size="8" letter-spacing="2">' +
+    '<textPath href="#arcBottom" startOffset="50%" text-anchor="middle">· M DCC LXVII ·</textPath></text>' +
+    '<g class="side-a"><text x="60" y="58" text-anchor="middle" fill="#9e2b25" ' +
+    'font-family="Cormorant SC, Georgia, serif" font-size="16" letter-spacing="1.5">' + label + '</text></g>' +
+    '<line x1="42" y1="64" x2="78" y2="64" stroke="#9e2b25" stroke-width="1" opacity="0.8"/>' +
+    '<g class="side-b"><text x="60" y="78" text-anchor="middle" fill="#9e2b25" ' +
+    'font-family="Cormorant SC, Georgia, serif" font-size="16" letter-spacing="1.5">' +
+    (label === 'HR' ? 'EN' : 'HR') + '</text></g>' +
+    '</svg>';
+  a.innerHTML = stamp;
   document.body.appendChild(a);
 })();
