@@ -1,0 +1,465 @@
+/* ============ DAS KAPITAL — shared styles ============ */
+:root{
+  --paper:#f4ecd9;
+  --paper-deep:#ece1c8;
+  --ink:#1d1a16;
+  --ink-soft:#4a4238;
+  --red:#9e2b25;
+  --red-deep:#7a1f1a;
+  --gold:#8a6d3b;
+  --rule:#c9b892;
+  --measure:62ch;
+  --hero-glow:rgba(255,250,235,.65);
+  --card-grad:rgba(255,252,244,.55);
+  --lift:rgba(255,255,255,.5);
+}
+*{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  background:var(--paper);
+  color:var(--ink);
+  font-family:"EB Garamond",Garamond,"Times New Roman",serif;
+  font-size:1.22rem;
+  line-height:1.72;
+  -webkit-font-smoothing:antialiased;
+}
+::selection{background:var(--red);color:#f4ecd9}
+
+.sheet{max-width:1040px;margin:0 auto;padding:0 2rem;position:relative}
+.frame{
+  border-left:1px solid var(--rule);
+  border-right:1px solid var(--rule);
+  position:relative;
+}
+
+a{color:var(--red-deep);text-decoration:none;border-bottom:1px solid rgba(154,43,37,.35);transition:all .2s}
+a:hover{color:var(--red);border-bottom-color:var(--red)}
+
+/* ============ READING RAIL (custom scrollbar) ============ */
+html{
+  scrollbar-width:none;
+  -ms-overflow-style:none;
+}
+body::-webkit-scrollbar{
+  display:none;
+}
+.rail{
+  position:fixed;right:14px;top:12vh;bottom:12vh;width:34px;
+  z-index:60;cursor:pointer;
+}
+.rail-track{
+  position:absolute;top:0;bottom:0;right:14px;width:1px;
+  background:linear-gradient(180deg,transparent,var(--rule) 12%,var(--rule) 88%,transparent);
+}
+.rail-tick{
+  position:absolute;right:10px;width:9px;height:1px;background:var(--gold);
+  opacity:.65;transition:opacity .2s;
+}
+.rail-tick.past{opacity:.25}
+.rail-thumb{
+  position:absolute;right:6px;width:17px;height:56px;
+  transform:translateY(-50%);
+  cursor:grab;
+}
+.rail-thumb::before{
+  content:"";position:absolute;top:8px;bottom:8px;left:7px;width:3px;
+  background:linear-gradient(180deg,var(--red-deep),var(--red));
+  border-radius:2px;
+}
+.rail-thumb::after{
+  content:"";position:absolute;top:0;left:50%;transform:translateX(-50%) rotate(45deg);
+  width:7px;height:7px;background:var(--ink);
+  box-shadow:0 0 0 1px var(--paper) inset;
+}
+.rail-thumb.bottom-cap::after{top:auto;bottom:0}
+.rail-glyph{
+  position:absolute;right:2px;top:50%;transform:translate(50%,-50%) translateY(40px);
+  font-family:"UnifrakturMaguntia",serif;font-size:.95rem;color:var(--ink-soft);
+  user-select:none;pointer-events:none;white-space:nowrap;
+}
+.rail:hover .rail-glyph{color:var(--red-deep)}
+@media (max-width:760px){.rail{display:none}}
+@media print{.rail{display:none}}
+
+/* Reading progress */
+#progress{
+  position:fixed;top:0;left:0;height:4px;width:0%;
+  background:linear-gradient(90deg,var(--red-deep),var(--red));
+  z-index:99;
+}
+
+/* ============ HERO ============ */
+header.hero{
+  min-height:100vh;
+  display:flex;flex-direction:column;justify-content:center;align-items:center;
+  text-align:center;
+  position:relative;
+  overflow:hidden;
+}
+header.hero::before{
+  content:"";
+  position:absolute;inset:0;
+  background:
+    radial-gradient(ellipse at 50% 20%, var(--hero-glow), transparent 60%),
+    radial-gradient(ellipse at 80% 90%, rgba(122,31,26,.07), transparent 55%),
+    radial-gradient(ellipse at 15% 85%, rgba(122,31,26,.06), transparent 50%);
+  pointer-events:none;
+}
+.hero-inner{position:relative;z-index:2;padding:4rem 1.5rem}
+.hero-ornament{
+  font-size:1.1rem;letter-spacing:.9em;color:var(--gold);
+  margin-bottom:2.5rem;text-indent:.9em;
+}
+h1.book-title{
+  font-family:"UnifrakturMaguntia",serif;
+  font-weight:400;
+  font-size:clamp(4.2rem, 13vw, 9.5rem);
+  line-height:.95;
+  letter-spacing:.01em;
+  color:var(--ink);
+  text-shadow:0 1px 0 var(--lift), 0 3px 6px rgba(0,0,0,.12);
+}
+.hero-sub{
+  font-family:"Cormorant SC",serif;
+  text-transform:uppercase;
+  letter-spacing:.55em;text-indent:.55em;
+  font-size:clamp(.85rem,2vw,1.15rem);
+  color:var(--red-deep);
+  margin-top:2.2rem;
+}
+.hero-author{
+  margin-top:3rem;
+  font-family:"Cormorant SC",serif;
+  font-size:1.35rem;letter-spacing:.28em;text-indent:.28em;
+  color:var(--ink-soft);
+}
+.hero-meta{
+  margin-top:1rem;font-style:italic;color:var(--ink-soft);font-size:1rem;
+}
+.hero-rule{
+  display:flex;align-items:center;justify-content:center;gap:1rem;
+  margin:2.8rem auto 0;color:var(--gold);
+}
+.hero-rule::before,.hero-rule::after{
+  content:"";height:1px;width:min(140px,20vw);
+  background:linear-gradient(90deg,transparent,var(--rule));
+}
+.hero-rule::after{background:linear-gradient(90deg,var(--rule),transparent)}
+.scroll-cue{
+  border-bottom:none;
+  position:absolute;bottom:2.4rem;left:50%;transform:translateX(-50%);
+  font-family:"Cormorant SC",serif;letter-spacing:.35em;text-indent:.35em;
+  font-size:.8rem;color:var(--ink-soft);
+  animation:cue 2.6s ease-in-out infinite;
+}
+@keyframes cue{0%,100%{opacity:.35;transform:translate(-50%,0)}50%{opacity:1;transform:translate(-50%,8px)}}
+
+/* ============ SECTION SHELLS ============ */
+section{padding:6.5rem 0;position:relative}
+.kicker{
+  font-family:"Cormorant SC",serif;
+  text-transform:uppercase;letter-spacing:.5em;text-indent:.5em;
+  color:var(--red);font-size:.85rem;margin-bottom:1.2rem;text-align:center;
+}
+h2{
+  font-family:"UnifrakturMaguntia",serif;font-weight:400;
+  font-size:clamp(2.4rem,6vw,4rem);line-height:1.15;
+  text-align:center;margin-bottom:.8rem;
+}
+.subtitle{
+  text-align:center;font-style:italic;color:var(--ink-soft);
+  max-width:48ch;margin:0 auto 3.2rem;
+}
+
+/* ============ CONTENTS ============ */
+.contents{
+  background:var(--paper-deep);
+  border-top:1px solid var(--rule);
+  border-bottom:1px solid var(--rule);
+}
+.toc{max-width:760px;margin:0 auto}
+.toc-part{
+  font-family:"Cormorant SC",serif;text-transform:uppercase;
+  letter-spacing:.4em;font-size:.75rem;color:var(--gold);
+  margin:2.4rem 0 .6rem;text-align:center;
+}
+.toc-part::after{
+  content:"";display:block;width:60px;height:1px;background:var(--rule);
+  margin:.7rem auto 0;
+}
+.toc-vol{
+  display:grid;grid-template-columns:auto 1fr;align-items:baseline;gap:1.2rem;
+  padding:.7rem .25rem;
+  border-bottom:1px dotted var(--rule);
+}
+.toc-vol a{border-bottom:none;display:block}
+.toc-vol a:hover{color:var(--red)}
+.toc-num{
+  font-family:"Cormorant SC",serif;font-size:1rem;color:var(--red);
+  min-width:2.6rem;letter-spacing:.05em;
+}
+.toc-title{font-size:1.18rem}
+
+/* ============ READING PAGE ============ */
+header.chapter-hero{
+  min-height:100vh;
+  display:flex;flex-direction:column;justify-content:center;align-items:center;
+  text-align:center;
+  position:relative;
+  overflow:hidden;
+}
+header.chapter-hero::before{
+  content:"";
+  position:absolute;inset:0;
+  background:
+    radial-gradient(ellipse at 50% 20%, var(--hero-glow), transparent 60%),
+    radial-gradient(ellipse at 80% 90%, rgba(122,31,26,.07), transparent 55%),
+    radial-gradient(ellipse at 15% 85%, rgba(122,31,26,.06), transparent 50%);
+  pointer-events:none;
+}
+header.chapter-hero .hero-inner{position:relative;z-index:2;padding:4rem 1.5rem}
+header.chapter-hero .chapter-no{
+  font-family:"Cormorant SC",serif;
+  text-transform:uppercase;letter-spacing:.5em;text-indent:.5em;
+  color:var(--red);font-size:.85rem;margin-bottom:2rem;
+}
+header.chapter-hero h1.chapter-title{
+  font-family:"UnifrakturMaguntia",serif;font-weight:400;
+  font-size:clamp(2.4rem,6vw,4.6rem);line-height:1.15;
+  margin-bottom:2rem;max-width:18ch;
+}
+header.chapter-hero .hero-rule{margin-top:0}
+header.chapter-hero .part-tag{
+  margin-top:1.6rem;margin-bottom:0;
+}
+main.reading{max-width:var(--measure);margin:0 auto;padding:4rem 1.5rem 6rem}
+.chapter-no{
+  text-align:center;font-family:"Cormorant SC",serif;
+  text-transform:uppercase;letter-spacing:.5em;text-indent:.5em;
+  color:var(--red);font-size:.8rem;margin-bottom:1.4rem;
+}
+h1.chapter-title{
+  font-family:"UnifrakturMaguntia",serif;font-weight:400;
+  font-size:clamp(2.1rem,5vw,3.1rem);line-height:1.2;
+  text-align:center;margin-bottom:1rem;
+}
+.part-tag{
+  text-align:center;font-style:italic;color:var(--gold);
+  font-family:"Cormorant SC",serif;font-size:.95rem;letter-spacing:.15em;
+  margin-bottom:3.2rem;
+}
+h4.sec{
+  font-family:"Cormorant SC",serif;font-weight:600;
+  font-size:1.3rem;letter-spacing:.12em;line-height:1.4;
+  text-transform:uppercase;color:var(--red-deep);
+  margin:4.5rem 0 2.2rem;text-align:center;
+  padding:1.6rem 1rem;position:relative;
+}
+h4.sec::before,h4.sec::after{
+  content:"";position:absolute;left:10%;right:10%;height:1px;
+  background:var(--rule);
+}
+h4.sec::before{top:0;box-shadow:0 3px 0 rgba(201,184,146,.45)}
+h4.sec::after{bottom:0;box-shadow:0 -3px 0 rgba(201,184,146,.45)}
+h4.sec .no{
+  display:block;
+  font-family:"Cormorant SC",serif;font-weight:400;
+  font-size:.95rem;color:var(--gold);text-transform:lowercase;letter-spacing:.45em;text-indent:.45em;
+  margin-bottom:.6rem;
+}
+.prose p{margin-bottom:1.4rem;text-align:justify;hyphens:auto}
+.prose p + p{text-indent:2.2em}
+main.reading p:not(.chapter-no):not(.part-tag){
+  margin-bottom:1.75rem;text-align:left;
+}
+main.reading p:not(.chapter-no):not(.part-tag) + p{text-indent:0}
+.dropcap::first-letter{
+  font-family:"UnifrakturMaguntia",serif;
+  float:left;font-size:4.4rem;line-height:.82;
+  padding:.35rem .75rem .1rem 0;color:var(--red-deep);
+  text-shadow:0 1px 0 var(--lift);
+}
+.prose .note{font-size:.92rem;color:var(--ink-soft)}
+.chapter-pager{
+  display:flex;justify-content:space-between;align-items:center;
+  max-width:var(--measure);margin:0 auto;padding:2rem 1.5rem 4rem;
+  font-family:"Cormorant SC",serif;letter-spacing:.2em;text-transform:uppercase;
+  font-size:.85rem;
+}
+.chapter-pager a{border-bottom:none;color:var(--red-deep)}
+.chapter-pager a:hover{color:var(--red)}
+
+/* ============ FOOTNOTES ============ */
+.footnotes{
+  max-width:var(--measure);margin:0 auto;padding:3rem 1.5rem 5rem;
+  border-top:3px double var(--rule);
+}
+.footnotes h3{
+  font-family:"Cormorant SC",serif;font-weight:600;letter-spacing:.35em;
+  text-transform:uppercase;font-size:.95rem;color:var(--gold);
+  text-align:center;margin-bottom:2rem;
+}
+.footnotes p.fn{
+  font-size:.95rem;line-height:1.6;color:var(--ink-soft);
+  margin-bottom:1.1rem;padding-left:2.2rem;text-indent:-2.2rem;
+}
+.footnotes p.fn sup{color:var(--red);font-family:"Cormorant SC",serif;padding-right:.5rem}
+.footnotes p.fn a.back{border-bottom:none;font-size:.85rem;padding-left:.4rem}
+sup.fnref{line-height:0}
+sup.fnref a{
+  border-bottom:none;font-family:"Cormorant SC",serif;
+  font-size:.72em;color:var(--red);padding:0 .1em;
+}
+
+/* ============ QUOTES & ORNAMENTS ============ */
+.quote-block{
+  margin:3rem 0;padding:1.8rem 2.2rem;
+  border-left:3px solid var(--red);
+  background:linear-gradient(90deg, rgba(154,43,37,.05), transparent 70%);
+  font-style:italic;font-size:1.28rem;line-height:1.65;
+}
+.quote-block cite{
+  display:block;margin-top:.8rem;font-style:normal;
+  font-family:"Cormorant SC",serif;font-size:.8rem;
+  letter-spacing:.3em;text-transform:uppercase;color:var(--red);
+}
+.ornament{
+  text-align:center;color:var(--gold);font-size:1.2rem;
+  letter-spacing:1.2em;text-indent:1.2em;margin:3.5rem 0 0;
+}
+.epigraph{
+  margin:0 auto 3rem;max-width:46ch;text-align:center;
+  font-style:italic;font-size:1.15rem;color:var(--ink-soft);position:relative;
+}
+.epigraph::before{
+  content:"❝";display:block;font-style:normal;
+  color:var(--red);font-size:1.6rem;line-height:1;margin-bottom:.6rem;
+}
+.epigraph cite{
+  display:block;margin-top:.9rem;font-style:normal;
+  font-family:"Cormorant SC",serif;font-size:.8rem;
+  letter-spacing:.3em;text-transform:uppercase;color:var(--gold);
+}
+
+/* ============ VOLUMES ============ */
+.volumes{max-width:900px;margin:0 auto;display:grid;gap:2.5rem}
+.volume{
+  display:grid;grid-template-columns:120px 1fr;gap:2rem;
+  padding:2.4rem 2rem;
+  border:1px solid var(--rule);
+  background:linear-gradient(180deg, var(--card-grad), transparent);
+  position:relative;
+}
+.volume::before{
+  content:"";position:absolute;top:-1px;left:-1px;right:-1px;height:5px;
+  background:var(--red);
+}
+.volume-roman{
+  font-family:"Cormorant SC",serif;font-size:3.4rem;line-height:1;
+  color:var(--red);text-align:center;padding-top:.3rem;
+}
+.volume-roman small{
+  display:block;font-size:.7rem;letter-spacing:.4em;text-transform:uppercase;
+  color:var(--gold);margin-top:.5rem;text-indent:.4em;
+}
+.volume h4{
+  font-family:"Cormorant SC",serif;font-weight:600;font-size:1.5rem;
+  letter-spacing:.06em;margin-bottom:.4rem;
+}
+.volume .de{font-style:italic;color:var(--ink-soft);font-size:1.05rem;margin-bottom:.9rem}
+.volume p{font-size:1.05rem;color:var(--ink-soft);line-height:1.6}
+.volume .dates{
+  margin-top:1rem;font-family:"Cormorant SC",serif;font-size:.78rem;
+  letter-spacing:.25em;color:var(--gold);
+}
+
+/* ============ MARX SECTION ============ */
+.marx{background:var(--ink);color:#f4ecd9}
+.marx .kicker{color:var(--gold)}
+.marx h2{color:#f4ecd9}
+.marx .subtitle{color:rgba(244,236,217,.75)}
+.timeline{max-width:800px;margin:0 auto;position:relative;padding-left:2.2rem}
+.timeline::before{
+  content:"";position:absolute;left:.45rem;top:.5rem;bottom:.5rem;width:1px;
+  background:linear-gradient(180deg,var(--gold),rgba(138,109,59,.15));
+}
+.event{position:relative;padding-bottom:2.4rem}
+.event::before{
+  content:"";position:absolute;left:-2.2rem;top:.55rem;
+  width:.85rem;height:.85rem;border-radius:50%;
+  background:var(--ink);border:1px solid var(--red);
+  box-shadow:0 0 0 4px rgba(154,43,37,.22);
+}
+.event .year{
+  font-family:"Cormorant SC",serif;color:var(--gold);
+  font-size:1rem;letter-spacing:.3em;
+}
+.event h5{font-family:"Cormorant SC",serif;font-weight:600;font-size:1.3rem;margin:.3rem 0 .4rem;color:#f4ecd9}
+.event p{color:rgba(244,236,217,.78);font-size:1.02rem;line-height:1.65;max-width:60ch}
+
+/* ============ CONCEPT CARDS ============ */
+.principles{
+  max-width:960px;margin:0 auto;display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:2rem;
+}
+.card{
+  border:1px solid var(--rule);padding:2.2rem 1.8rem;
+  text-align:center;background:linear-gradient(180deg,var(--card-grad),transparent);
+  transition:transform .25s ease, box-shadow .25s ease;
+}
+.card:hover{transform:translateY(-4px);box-shadow:0 14px 30px -18px rgba(0,0,0,.35)}
+.card .glyph{
+  font-family:"UnifrakturMaguntia",serif;font-size:2.6rem;color:var(--red);
+  line-height:1;margin-bottom:1.1rem;
+}
+.card h4{font-family:"Cormorant SC",serif;font-weight:600;font-size:1.2rem;letter-spacing:.08em;margin-bottom:.7rem}
+.card p{font-size:1rem;color:var(--ink-soft);line-height:1.6}
+
+/* ============ FOOTER ============ */
+footer{
+  background:var(--ink);color:rgba(244,236,217,.7);
+  text-align:center;padding:4.5rem 2rem 3.5rem;
+  border-top:3px double var(--gold);
+}
+footer .fin{
+  font-family:"UnifrakturMaguntia",serif;color:#f4ecd9;
+  font-size:2rem;margin-bottom:1.4rem;
+}
+footer p{max-width:60ch;margin:0 auto;font-size:.98rem;line-height:1.7}
+footer .colophon{
+  margin-top:2.2rem;font-family:"Cormorant SC",serif;
+  font-size:.75rem;letter-spacing:.35em;text-indent:.35em;color:var(--gold);
+}
+
+/* ============ RESPONSIVE & PRINT ============ */
+@media (max-width:640px){
+  body{font-size:1.12rem}
+  .volume{grid-template-columns:1fr;text-align:center}
+  .volume-roman{font-size:2.6rem}
+  .prose p{text-align:left}
+}
+@media print{
+  #progress,.scroll-cue{display:none}
+  body{background:#fff}
+}
+
+/* all-caps subsection continuation lines */
+h5.sub{
+  font-family:"Cormorant SC",serif;font-weight:600;
+  font-size:1.05rem;letter-spacing:.12em;color:var(--gold);
+  margin:2rem 0 1.2rem;text-align:center;text-transform:uppercase;
+}
+
+/* ============ LANGUAGE SWITCH ============ */
+.lang-switch{
+  position:fixed;bottom:1.2rem;right:1.4rem;z-index:70;
+  font-family:"Cormorant SC",serif;font-size:.78rem;
+  letter-spacing:.22em;text-transform:uppercase;
+  color:var(--ink-soft);background:var(--paper);
+  border:1px solid var(--rule);border-radius:999px;
+  padding:.5rem 1.1rem;cursor:pointer;
+  box-shadow:0 6px 18px -12px rgba(29,26,22,.45);
+  transition:all .2s;text-decoration:none;
+}
+.lang-switch:hover{border-color:var(--red);color:var(--red)}
+@media print{.lang-switch{display:none}}
