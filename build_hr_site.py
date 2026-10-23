@@ -335,7 +335,7 @@ index = head_block('KAPITAL — Karl Marx · Kritika političke ekonomije', 'hr'
   (25 glava). Izvorni engleski tekst (Moore–Aveling, 1887) dostupan je na
   engleskoj verziji ovih stranica. Tipografija u duhu prvog hamburgerskog
   izdanja.</p>
-  <p class="colophon">Tiskano godine MMXXV · Proletari svih zemalja, ujedinite se</p>
+  <p class="colophon">Verlegt im Jahre MMXXV · Proletarier aller Länder, vereinigt euch</p>
 </footer>
 
 ''' + FOOT_TMPL.format(js='../')
