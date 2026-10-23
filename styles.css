@@ -454,7 +454,8 @@ h5.sub{
 .lang-switch{
   position:fixed;bottom:1.6rem;right:1.8rem;z-index:70;
   width:92px;height:92px;
-  text-decoration:none;cursor:pointer;
+  text-decoration:none !important;border-bottom:none !important;
+  cursor:pointer;display:block;line-height:0;
   transform:rotate(-8deg);
   transition:transform .25s ease;
   filter:drop-shadow(0 2px 3px rgba(29,26,22,.18));
