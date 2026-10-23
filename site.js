@@ -223,15 +223,19 @@
   a.className = 'lang-switch';
   a.href = target;
   a.title = label === 'HR' ? 'Hrvatska verzija' : 'English version';
-  var cur = document.createElement('span');
-  cur.className = 'cur';
-  cur.textContent = label === 'HR' ? 'EN' : 'HR';
-  var bar = document.createElement('span');
-  bar.className = 'bar';
-  var other = document.createElement('b');
-  other.textContent = label;
-  a.appendChild(cur);
-  a.appendChild(bar);
-  a.appendChild(other);
+  var stampPath = /^hr\d/.test(path) || /\/hr\//.test(location.pathname)
+    ? (location.pathname.indexOf('glave') !== -1 ? '../../lang-stamp.svg' : '../lang-stamp.svg')
+    : (location.pathname.indexOf('chapters') !== -1 ? '../lang-stamp.svg' : 'lang-stamp.svg');
+  fetch(stampPath).then(function (r) { return r.text(); }).then(function (svg) {
+    a.innerHTML = svg;
+    var sideA = a.querySelector('.side-a text');
+    var sideB = a.querySelector('.side-b text');
+    if (label === 'HR') {
+      if (sideA) sideA.textContent = 'HR';
+      if (sideB) sideB.textContent = 'EN';
+    }
+  }).catch(function () {
+    a.textContent = label;
+  });
   document.body.appendChild(a);
 })();

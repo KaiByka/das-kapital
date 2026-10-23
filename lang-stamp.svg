@@ -1,0 +1,29 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 120 120">
+  <g fill="none" stroke="#9e2b25">
+    <path d="M60 8 C 88 7, 110 30, 111 59 C 112 87, 90 110, 61 111 C 33 112, 10 91, 9 60 C 8 31, 32 9, 60 8 Z"
+          stroke-width="2.6" opacity="0.92"/>
+    <path d="M60 16 C 84 15, 103 34, 104 58 C 105 82, 86 102, 61 103 C 37 104, 18 85, 17 59 C 16 34, 36 17, 60 16 Z"
+          stroke-width="1.4" opacity="0.85"/>
+  </g>
+  <defs>
+    <path id="arcTop" d="M 20 60 A 40 40 0 0 1 100 60"/>
+    <path id="arcBottom" d="M 17 60 A 43 43 0 0 0 103 60"/>
+  </defs>
+  <text fill="#9e2b25" font-family="'Cormorant SC', Georgia, serif"
+        font-size="10.5" letter-spacing="2.1">
+    <textPath href="#arcTop" startOffset="50%" text-anchor="middle">DAS KAPITAL</textPath>
+  </text>
+  <text fill="#9e2b25" font-family="'Cormorant SC', Georgia, serif"
+        font-size="9" letter-spacing="2.4">
+    <textPath href="#arcBottom" startOffset="50%" text-anchor="middle">· M DCC LXVII ·</textPath>
+  </text>
+  <g class="side-a">
+    <text x="60" y="58" text-anchor="middle" fill="#9e2b25"
+          font-family="'Cormorant SC', Georgia, serif" font-size="16" letter-spacing="1.5">EN</text>
+  </g>
+  <line x1="42" y1="64" x2="78" y2="64" stroke="#9e2b25" stroke-width="1" opacity="0.8"/>
+  <g class="side-b">
+    <text x="60" y="78" text-anchor="middle" fill="#9e2b25"
+          font-family="'Cormorant SC', Georgia, serif" font-size="16" letter-spacing="1.5">HR</text>
+  </g>
+</svg>
