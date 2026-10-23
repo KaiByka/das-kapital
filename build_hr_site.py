@@ -184,7 +184,7 @@ index = head_block('KAPITAL — Karl Marx · Kritika političke ekonomije', 'hr'
 
 <!-- ================= SADRŽAJ ================= -->
 <section class="contents frame" id="sadrzaj">
-  <p class="kicker">Sadržaj · Prvi svezak</p>
+  <p class="kicker">Inhalt · Prvi svezak</p>
   <h2>Sadržaj</h2>
   <p class="subtitle">Osam odjeljaka, dvadeset pet glava — cijeli prvi svezak. Kliknite bilo koju glavu za čitanje.</p>
 
@@ -195,7 +195,7 @@ index = head_block('KAPITAL — Karl Marx · Kritika političke ekonomije', 'hr'
 
 <!-- ================= TRI SVESKA ================= -->
 <section class="frame" id="svesci">
-  <p class="kicker">Ukupni proces</p>
+  <p class="kicker">Der Gesammtprocess</p>
   <h2>Tri sveska, jedna kritika</h2>
   <p class="subtitle">Marx je četrdeset godina radio na kritici političke ekonomije. Ovo izdanje donosi prvi svezak u cijelosti; ostali su sačuvani zahvaljujući Engelsu.</p>
 
@@ -237,7 +237,7 @@ index = head_block('KAPITAL — Karl Marx · Kritika političke ekonomije', 'hr'
 
 <!-- ================= MARX ================= -->
 <section class="marx frame" id="marx">
-  <p class="kicker">Autor</p>
+  <p class="kicker">Der Autor</p>
   <h2>Autor</h2>
   <p class="subtitle">Čitatelj u Britanskom muzeju, izbjeglica u Londonu, čovjek koji je desetljećima
   proučavao izvještaje o tvornicama i plave knjige svoga doba.</p>
@@ -282,7 +282,7 @@ index = head_block('KAPITAL — Karl Marx · Kritika političke ekonomije', 'hr'
 
 <!-- ================= POJMOVI ================= -->
 <section class="frame" id="pojmovi">
-  <p class="kicker">Osnovni pojmovi</p>
+  <p class="kicker">Grundbegriffe</p>
   <h2>Arhitektura argumenta</h2>
   <p class="subtitle">Svaki pojam u <em>Kapitalu</em> građen je dijalektički:
   jedan vodi u drugi unutrašnjom nužnošću, od jednostavne robe do
