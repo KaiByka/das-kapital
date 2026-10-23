@@ -223,6 +223,15 @@
   a.className = 'lang-switch';
   a.href = target;
   a.title = label === 'HR' ? 'Hrvatska verzija' : 'English version';
-  a.textContent = label;
+  var cur = document.createElement('span');
+  cur.className = 'cur';
+  cur.textContent = label === 'HR' ? 'EN' : 'HR';
+  var bar = document.createElement('span');
+  bar.className = 'bar';
+  var other = document.createElement('b');
+  other.textContent = label;
+  a.appendChild(cur);
+  a.appendChild(bar);
+  a.appendChild(other);
   document.body.appendChild(a);
 })();
