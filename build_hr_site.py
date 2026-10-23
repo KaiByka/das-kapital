@@ -290,38 +290,38 @@ index = head_block('KAPITAL — Karl Marx · Kritika političke ekonomije', 'hr'
 
   <div class="principles">
     <div class="card">
-      <div class="glyph">R</div>
-      <h4>Roba — Commodity</h4>
+      <div class="glyph">W</div>
+      <h4>Ware — Roba</h4>
       <p>Stanični oblik buržoaskog društva: odjednom upotrebna vrijednost
       i vrijednost, stvar i društveni odnos u maski.</p>
     </div>
     <div class="card">
-      <div class="glyph">N</div>
-      <h4>Novac — Money</h4>
+      <div class="glyph">G</div>
+      <h4>Gold — Novac</h4>
       <p>Univerzalni ekvivalent: prvi adekvatni oblik pojavljivanja
       vrijednosti i vrata kroz koja vrijednost postaje kapital.</p>
     </div>
     <div class="card">
-      <div class="glyph">V</div>
-      <h4>Višak vrijednosti — Surplus-Value</h4>
+      <div class="glyph">M</div>
+      <h4>Mehrwert — Višak vrijednosti</h4>
       <p>Otkud profit? Iz osobitosti radne snage: ona stvara više
       vrijednosti nego što košta njezina vlastita reprodukcija.</p>
     </div>
     <div class="card">
       <div class="glyph">K</div>
-      <h4>Kapital — Capital</h4>
+      <h4>Kapital</h4>
       <p>Ne stvar nego proces: vrijednost u kretanju koja se oplođuje —
       „mrtav rad koji, vampirski, živi sišući živi rad.“</p>
     </div>
     <div class="card">
       <div class="glyph">A</div>
-      <h4>Akumulacija — Accumulation</h4>
+      <h4>Akkumulation — Akumulacija</h4>
       <p>Višak vrijednosti postaje novi kapital, a novi kapital traži
       više radne snage: sustav širi vlastiti temelj.</p>
     </div>
     <div class="card">
-      <div class="glyph">Z</div>
-      <h4>Zakon — The Law</h4>
+      <div class="glyph">G′</div>
+      <h4>Gesetz — Zakon</h4>
       <p>Opći zakon kapitalističke akumulacije koncentrira i
       centralizira kapital — pripremajući vlastite povijesne granice.</p>
     </div>
