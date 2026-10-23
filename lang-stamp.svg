@@ -6,15 +6,15 @@
           stroke-width="1.4" opacity="0.85"/>
   </g>
   <defs>
-    <path id="arcTop" d="M 20 60 A 40 40 0 0 1 100 60"/>
-    <path id="arcBottom" d="M 17 60 A 43 43 0 0 0 103 60"/>
+    <path id="arcTop" d="M 27 60 A 33 33 0 0 1 93 60"/>
+    <path id="arcBottom" d="M 27 60 A 33 33 0 0 0 93 60"/>
   </defs>
   <text fill="#9e2b25" font-family="'Cormorant SC', Georgia, serif"
-        font-size="10.5" letter-spacing="2.1">
+        font-size="9.5" letter-spacing="1.8">
     <textPath href="#arcTop" startOffset="50%" text-anchor="middle">DAS KAPITAL</textPath>
   </text>
   <text fill="#9e2b25" font-family="'Cormorant SC', Georgia, serif"
-        font-size="9" letter-spacing="2.4">
+        font-size="8" letter-spacing="2">
     <textPath href="#arcBottom" startOffset="50%" text-anchor="middle">· M DCC LXVII ·</textPath>
   </text>
   <g class="side-a">
