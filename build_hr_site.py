@@ -27,9 +27,27 @@ ORDINALS = {1:'prva',2:'druga',3:'treća',4:'četvrta',5:'peta',6:'šesta',7:'se
 def esc(t):
     return html.escape(t, quote=False)
 
-def md_inline(t):
+SUP = {'\u00b9':'1','\u00b2':'2','\u00b3':'3','\u2074':'4','\u2075':'5',
+       '\u2076':'6','\u2077':'7','\u2078':'8','\u2079':'9','\u2070':'0'}
+SUPCHARS = ''.join(SUP.keys())
+
+def md_inline(t, strip_leading_marker=False):
     t = html.escape(t, quote=False)
-    t = re.sub(r'\$^\{(\d+)\}\$', r'<sup class="fnref">\1</sup>', t)
+    dollar_pat = r'\$\^\{(\d+)\}\$'
+    if strip_leading_marker:
+        m = re.match(dollar_pat + r'\s*', t)
+        if m:
+            t = t[m.end():]
+    def mklink(num):
+        return ('<sup class="fnref"><a href="#fn' + num + '" id="ref' + num + '">'
+                + num + '</a></sup>')
+    t = re.sub(dollar_pat, lambda m: mklink(m.group(1)), t)
+    def usub(m):
+        num = ''.join(SUP.get(ch, '') for ch in m.group(1))
+        return mklink(num) if num else m.group(0)
+    prev = '[\u201c\u201d\u201ea-zA-Z\u010d\u0107\u0161\u017e\u0111\u00e2,.;:0-9)]'
+    look = '(?=[\s.,;!?\u201d)]|$)'
+    t = re.sub(prev + '([' + SUPCHARS + ']+)' + look, usub, t)
     t = re.sub(r'\*(.+?)\*', r'<em>\1</em>', t)
     return t
 
@@ -62,7 +80,11 @@ def parse_hr(md):
             continue
         if re.match(r'^(\$\^\{\d+\}\$|\^\d+|\^\u00b9|\^\u00b2|\^\u00b3)', s):
             flush()
-            notes.append(s)
+            m3 = re.match(r'^\$\^\{(\d+)\}\$\s*(.*)$', s)
+            if m3:
+                notes.append((int(m3.group(1)), m3.group(2)))
+            else:
+                notes.append((None, s))
             continue
         buf.append(s)
     flush()
@@ -138,8 +160,11 @@ for n, c in pages.items():
         out.append(f'<p class="{cls}">{md_inline(p)}</p>')
     if c['notes']:
         out.append('</main><section class="footnotes"><h3>Bilješke · Fusnote</h3>')
-        for note in c['notes']:
-            out.append(f'<p class="fn">{md_inline(note)}</p>')
+        for num, text in c['notes']:
+            if num is not None:
+                out.append(f'<p class="fn" id="fn{num}"><sup>{num}</sup>{md_inline(text)} <a class="back" href="#ref{num}">↩</a></p>')
+            else:
+                out.append(f'<p class="fn">{md_inline(text, strip_leading_marker=True)}</p>')
         out.append('</section>')
     else:
         out.append('</main>')
@@ -149,8 +174,15 @@ for n, c in pages.items():
     out.append(f'<a href="{nxt["slug"]}.html">Glava {ORDINALS[n+1]} →</a>' if nxt else '<span></span>')
     out.append('</nav>')
     out.append(FOOT_TMPL.format(js='../../'))
+    html_out = '\n'.join(out)
+    # neutralize markers whose footnote is not on this page (page-break orphans)
+    fns_on_page = set(re.findall(r'id="fn(\d+)"', html_out))
+    def _unlink(m):
+        return m.group(0) if m.group(1) in fns_on_page else (
+            '<sup class="fnref">' + m.group(1) + '</sup>')
+    html_out = re.sub(r'<sup class="fnref"><a href="#fn(\d+)" id="ref\1">\1</a></sup>', _unlink, html_out)
     path = os.path.join(OUT, 'hr', 'glave', c['slug'] + '.html')
-    open(path, 'w', encoding='utf-8').write('\n'.join(out))
+    open(path, 'w', encoding='utf-8').write(html_out)
     print('wrote glave/' + c['slug'] + '.html', f"({len(c['paras'])} paras, {len(c['notes'])} notes)")
 
 # ---------- Croatian index ----------
