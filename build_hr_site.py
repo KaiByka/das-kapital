@@ -5,7 +5,7 @@ import re, os, html, json
 
 HR_SRC = os.path.dirname(os.path.abspath(__file__))
 OUT = os.path.dirname(os.path.abspath(__file__))
-SITE = 'https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500&family=UnifrakturMaguntia&family=Cormorant+SC:wght@400;600&display=swap'
+SITE = 'https://fonts.googleapis.com/css2?family=Caveat:wght@400..700&family=EB+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500&family=UnifrakturMaguntia&family=Cormorant+SC:wght@400;600&display=swap'
 
 TITLES = json.load(open(os.path.join(HR_SRC, 'titles.json'), encoding='utf-8'))
 TITLES['1'] = 'ROBA'

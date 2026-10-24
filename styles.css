@@ -57,9 +57,10 @@ body::-webkit-scrollbar{
 }
 .rail-tick.past{opacity:.25}
 .rail-thumb{
-  position:absolute;right:6px;width:17px;height:56px;
+  position:absolute;right:6px;width:17px;height:62px;
   transform:translateY(-50%);
   cursor:grab;
+  z-index:2;
 }
 .rail-thumb::before{
   content:"";position:absolute;top:8px;bottom:8px;left:7px;width:3px;
@@ -72,20 +73,160 @@ body::-webkit-scrollbar{
   box-shadow:0 0 0 1px var(--paper) inset;
 }
 .rail-thumb.bottom-cap::after{top:auto;bottom:0}
-.rail-glyph{
-  position:absolute;right:2px;top:50%;transform:translate(50%,-50%) translateY(40px);
-  font-family:"UnifrakturMaguntia",serif;font-size:.95rem;color:var(--ink-soft);
-  user-select:none;pointer-events:none;white-space:nowrap;
+.rail-spine{
+  position:absolute;
+  top:50%;
+  right:14px;
+  transform:translateY(-50%);
+  writing-mode:vertical-rl;
+  text-orientation:mixed;
+  font-family:"Cormorant SC",serif;
+  font-weight:600;
+  font-size:.66rem;
+  letter-spacing:.28em;
+  text-indent:.28em;
+  line-height:1;
+  color:var(--ink-soft);
+  user-select:none;
+  pointer-events:none;
+  white-space:nowrap;
+  transition:color .2s ease;
 }
-.rail:hover .rail-glyph{color:var(--red-deep)}
+.rail:hover .rail-spine{color:var(--red-deep)}
 @media (max-width:760px){.rail{display:none}}
 @media print{.rail{display:none}}
 
-/* Reading progress */
+/* ============ RUNNING BOOK HEADER (Kolumnentitel) & PROGRESS ============ */
+.running-header{
+  position:fixed;
+  top:0;
+  left:0;
+  right:0;
+  height:38px;
+  background:rgba(244,236,217,.94);
+  backdrop-filter:blur(4px);
+  -webkit-backdrop-filter:blur(4px);
+  z-index:95;
+  transform:translateY(-38px);
+  transition:transform .32s cubic-bezier(.22,1,.36,1), box-shadow .32s ease;
+}
+.running-header.is-visible{
+  transform:translateY(0);
+  box-shadow:0 4px 16px rgba(29,26,22,.07);
+}
+.rh-inner{
+  max-width:1040px;
+  height:100%;
+  margin:0 auto;
+  padding:0 2rem;
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:1.5rem;
+  font-family:"Cormorant SC",serif;
+  font-size:.78rem;
+  letter-spacing:.18em;
+  text-transform:uppercase;
+  color:var(--ink-soft);
+}
+.rh-left{
+  display:flex;
+  align-items:center;
+  gap:.5rem;
+  min-width:0;
+  white-space:nowrap;
+  overflow:hidden;
+  text-overflow:ellipsis;
+}
+.rh-back{
+  color:var(--red-deep);
+  border-bottom:none !important;
+  font-weight:600;
+  flex-shrink:0;
+}
+.rh-back:hover{
+  color:var(--red);
+}
+.rh-book{
+  color:var(--gold);
+  flex-shrink:0;
+}
+.rh-title{
+  color:var(--ink);
+  font-weight:600;
+  overflow:hidden;
+  text-overflow:ellipsis;
+}
+.rh-sep{
+  color:var(--rule);
+  flex-shrink:0;
+}
+.rh-right{
+  display:flex;
+  align-items:center;
+  gap:.75rem;
+  min-width:0;
+  max-width:52%;
+}
+.rh-sec{
+  color:var(--ink-soft);
+  white-space:nowrap;
+  overflow:hidden;
+  text-overflow:ellipsis;
+  font-size:.74rem;
+  letter-spacing:.14em;
+}
+.rh-pct{
+  color:var(--red-deep);
+  font-weight:600;
+  font-size:.74rem;
+  letter-spacing:.12em;
+  border-left:1px solid var(--rule);
+  padding-left:.65rem;
+  min-width:3.1rem;
+  text-align:right;
+  flex-shrink:0;
+}
+.rh-rule-track{
+  position:absolute;
+  left:0;
+  right:0;
+  bottom:-1px;
+  height:1px;
+  background:var(--rule);
+  opacity:.75;
+}
 #progress{
-  position:fixed;top:0;left:0;height:4px;width:0%;
+  position:absolute;
+  left:0;
+  bottom:-2px;
+  height:2.5px;
+  width:0%;
   background:linear-gradient(90deg,var(--red-deep),var(--red));
   z-index:99;
+}
+#progress::after{
+  content:"";
+  position:absolute;
+  right:-3.5px;
+  top:50%;
+  width:6px;
+  height:6px;
+  background:var(--red-deep);
+  box-shadow:0 0 0 1px var(--paper) inset;
+  transform:translateY(-50%) rotate(45deg);
+  opacity:0;
+  transition:opacity .2s ease;
+}
+#progress.has-progress::after{
+  opacity:1;
+}
+@media (max-width:680px){
+  .rh-inner{padding:0 1rem;font-size:.72rem}
+  .rh-sec{display:none}
+}
+@media print{
+  .running-header{display:none !important}
 }
 
 /* ============ HERO ============ */
@@ -450,23 +591,332 @@ h5.sub{
   margin:2rem 0 1.2rem;text-align:center;text-transform:uppercase;
 }
 
-/* ============ LANGUAGE SWITCH (stamp) ============ */
+/* ============ LANGUAGE SWITCH (printer's foot-mark) ============ */
 .lang-switch{
-  position:fixed;bottom:1.6rem;right:1.8rem;z-index:70;
-  width:92px;height:92px;
-  text-decoration:none !important;border-bottom:none !important;
-  cursor:pointer;display:block;line-height:0;
-  transform:rotate(-8deg);
-  transition:transform .25s ease;
-  filter:drop-shadow(0 2px 3px rgba(29,26,22,.18));
-  opacity:.88;
+  position:fixed;
+  bottom:1.15rem;
+  right:1.5rem;
+  z-index:70;
+  display:inline-flex;
+  align-items:center;
+  gap:.4rem;
+  padding:.2rem .3rem;
+  background:transparent;
+  border:none !important;
+  box-shadow:none;
+  color:var(--ink-soft);
+  font-family:"Cormorant SC",serif;
+  font-size:.75rem;
+  line-height:1.2;
+  letter-spacing:.2em;
+  text-transform:uppercase;
+  text-decoration:none !important;
+  cursor:pointer;
+  user-select:none;
+  opacity:.42;
+  transition:opacity .22s ease, color .22s ease;
 }
 .lang-switch:hover{
   opacity:1;
+  color:var(--red-deep);
 }
-.lang-switch svg{width:100%;height:100%;display:block}
-.lang-switch .side-a{opacity:1}
-.lang-switch .side-b{opacity:.45}
-.lang-switch:hover .side-b{opacity:.75}
+.lang-switch .l-glyph{
+  font-family:"EB Garamond",Garamond,serif;
+  font-size:.95rem;
+  line-height:1;
+  color:var(--red-deep);
+  letter-spacing:0;
+  text-transform:none;
+}
+.lang-switch .l-cur{
+  color:var(--ink);
+  font-weight:600;
+}
+.lang-switch .l-next{
+  font-size:.72rem;
+  letter-spacing:.2em;
+  color:var(--ink-soft);
+  border-left:1px solid var(--rule);
+  padding-left:.45rem;
+  transition:color .2s ease;
+}
+.lang-switch:hover .l-next{
+  color:var(--red-deep);
+}
 @media print{.lang-switch{display:none}}
+
+/* ============ MARGINALIA (L & R handwritten notes) ============ */
+main.reading p.has-marginalia-slots{
+  position:relative;
+}
+.marginalia-slot{
+  position:absolute;
+  top:-0.1rem;
+  width:clamp(155px, calc((100vw - 62ch) / 2 - 4.2rem), 275px);
+  min-height:2.2rem;
+  display:block;
+  z-index:20;
+  transition:opacity .25s ease, transform .25s ease;
+}
+.marginalia-slot.left{
+  right:calc(100% + 1.8rem);
+  text-align:right;
+  padding-right:.95rem;
+  border-right:1px solid transparent;
+}
+.marginalia-slot.right{
+  left:calc(100% + 1.8rem);
+  width:clamp(155px, calc((100vw - 62ch) / 2 - 5.2rem), 265px);
+  text-align:left;
+  padding-left:.95rem;
+  border-left:1px solid transparent;
+}
+.marginalia-slot.has-note.left,
+.marginalia-slot.is-editing.left{
+  border-right-color:rgba(158,43,37,.35);
+}
+.marginalia-slot.has-note.right,
+.marginalia-slot.is-editing.right{
+  border-left-color:rgba(158,43,37,.35);
+}
+
+/* Subtle prompt when hovering paragraph or margin */
+.marginalia-add{
+  display:inline-flex;
+  align-items:center;
+  gap:.3rem;
+  font-family:"Caveat",cursive;
+  font-size:1.12rem;
+  color:var(--gold);
+  background:none;
+  border:none;
+  cursor:pointer;
+  opacity:0;
+  padding:.1rem .35rem;
+  border-radius:3px;
+  transition:opacity .2s ease, color .2s ease, transform .2s ease;
+  user-select:none;
+}
+main.reading p.has-marginalia-slots:hover .marginalia-slot:not(.has-note):not(.is-editing) .marginalia-add,
+.marginalia-slot:not(.has-note):not(.is-editing):hover .marginalia-add,
+.marginalia-add:focus-visible{
+  opacity:.55;
+}
+.marginalia-slot:not(.has-note):not(.is-editing) .marginalia-add:hover{
+  opacity:1 !important;
+  color:var(--red-deep);
+  transform:scale(1.04);
+}
+.marginalia-slot.has-note .marginalia-add,
+.marginalia-slot.is-editing .marginalia-add{
+  display:none;
+}
+
+/* Handwritten note wrapper & textarea */
+.marginalia-note-wrap{
+  display:none;
+  position:relative;
+  transform:rotate(var(--note-rot, -0.7deg));
+  transition:transform .2s ease;
+}
+.marginalia-slot.left .marginalia-note-wrap{
+  transform-origin:85% 50%;
+}
+.marginalia-slot.right .marginalia-note-wrap{
+  transform-origin:15% 50%;
+}
+.marginalia-slot.has-note .marginalia-note-wrap,
+.marginalia-slot.is-editing .marginalia-note-wrap{
+  display:block;
+}
+.marginalia-input{
+  width:100%;
+  background:transparent;
+  border:none;
+  outline:none;
+  resize:none;
+  overflow:hidden;
+  font-family:"Caveat",cursive;
+  font-size:1.38rem;
+  font-weight:500;
+  line-height:1.22;
+  letter-spacing:.01em;
+  color:#38261e;
+  padding:.1rem 0;
+  margin:0;
+  display:block;
+  transition:color .2s ease;
+}
+.marginalia-slot.left .marginalia-input{
+  text-align:right;
+}
+.marginalia-slot.right .marginalia-input{
+  text-align:left;
+}
+.marginalia-input::placeholder{
+  color:rgba(138,109,59,.55);
+  font-style:italic;
+}
+.marginalia-input:focus{
+  color:#20130d;
+}
+
+/* Delete note button */
+.marginalia-del{
+  position:absolute;
+  top:-0.45rem;
+  background:var(--paper-deep);
+  border:1px solid var(--rule);
+  color:var(--ink-soft);
+  width:18px;
+  height:18px;
+  border-radius:50%;
+  font-family:"Cormorant SC",serif;
+  font-size:.75rem;
+  line-height:16px;
+  text-align:center;
+  cursor:pointer;
+  opacity:0;
+  transition:opacity .18s ease, color .18s ease, border-color .18s ease;
+  z-index:3;
+}
+.marginalia-slot.left .marginalia-del{left:-6px}
+.marginalia-slot.right .marginalia-del{right:-6px}
+.marginalia-note-wrap:hover .marginalia-del,
+.marginalia-slot.is-editing .marginalia-del{
+  opacity:.85;
+}
+.marginalia-del:hover{
+  opacity:1 !important;
+  color:var(--red-deep);
+  border-color:var(--red);
+}
+
+/* Rail tick indicator for paragraphs with marginalia */
+.rail-note-dot{
+  position:absolute;
+  right:18px;
+  width:5px;
+  height:5px;
+  border-radius:50%;
+  background:var(--red);
+  transform:translateY(-50%);
+  opacity:.75;
+  pointer-events:none;
+  transition:opacity .2s ease;
+}
+body.marginalia-hidden .rail-note-dot{
+  opacity:0;
+}
+
+/* Toggle OFF state */
+body.marginalia-hidden .marginalia-slot{
+  opacity:0 !important;
+  pointer-events:none !important;
+  transform:translateY(3px);
+}
+
+/* Floating Marginalia Toggle Control (printer's foot-mark, bottom-left) */
+.marginalia-toggle{
+  position:fixed;
+  bottom:1.15rem;
+  left:1.5rem;
+  z-index:70;
+  display:inline-flex;
+  align-items:center;
+  gap:.4rem;
+  padding:.2rem .3rem;
+  background:transparent;
+  border:none;
+  box-shadow:none;
+  color:var(--ink-soft);
+  font-family:"Cormorant SC",serif;
+  font-size:.75rem;
+  line-height:1.2;
+  letter-spacing:.2em;
+  text-transform:uppercase;
+  cursor:pointer;
+  user-select:none;
+  opacity:.42;
+  transition:opacity .22s ease, color .22s ease;
+}
+.marginalia-toggle:hover{
+  opacity:1;
+  color:var(--red-deep);
+}
+.marginalia-toggle .m-Nib{
+  font-family:"Caveat",cursive;
+  font-size:1.05rem;
+  line-height:1;
+  color:var(--red-deep);
+  letter-spacing:0;
+  text-transform:none;
+}
+.marginalia-toggle .m-state{
+  font-size:.68rem;
+  letter-spacing:.2em;
+  color:var(--red-deep);
+  border-left:1px solid var(--rule);
+  padding-left:.45rem;
+}
+.marginalia-toggle .m-count{
+  font-family:"Caveat",cursive;
+  font-size:.95rem;
+  letter-spacing:0;
+  color:var(--gold);
+  text-transform:none;
+}
+body.marginalia-hidden .marginalia-toggle{
+  opacity:.32;
+}
+body.marginalia-hidden .marginalia-toggle:hover{
+  opacity:1;
+}
+body.marginalia-hidden .marginalia-toggle .m-state{
+  color:var(--ink-soft);
+}
+body.marginalia-hidden .marginalia-toggle .m-Nib{
+  color:var(--ink-soft);
+}
+
+/* Responsive behavior when side margins are narrow */
+@media (max-width:1080px){
+  .marginalia-slot{
+    position:relative;
+    top:auto;
+    left:auto !important;
+    right:auto !important;
+    width:100% !important;
+    min-height:0;
+    margin-top:.4rem;
+  }
+  .marginalia-slot:not(.has-note):not(.is-editing){
+    display:inline-block;
+    width:auto !important;
+    margin-right:.75rem;
+  }
+  .marginalia-slot.left .marginalia-input{
+    text-align:left;
+    transform:none;
+  }
+  .marginalia-slot.left{
+    padding-right:0;
+    padding-left:.75rem;
+    border-right:none;
+    border-left:2px solid rgba(158,43,37,.35);
+  }
+  .marginalia-slot.left .marginalia-del{
+    left:auto;
+    right:-6px;
+  }
+  body.marginalia-hidden .marginalia-slot{
+    display:none !important;
+  }
+}
+@media print{
+  .marginalia-toggle,
+  .marginalia-add,
+  .marginalia-del{display:none !important}
+}
+
 
